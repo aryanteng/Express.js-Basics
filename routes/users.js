@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+router.use(log);
+
 router.get('/', (req, res) => {
   res.send('User List');
 });
@@ -32,5 +34,10 @@ router.param('id', (req, res, next, id) => {
   req.user = user[id];
   next();
 });
+
+function log(req, res, next) {
+  console.log(req.originalUrl);
+  next();
+}
 
 module.exports = router;
