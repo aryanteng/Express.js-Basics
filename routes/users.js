@@ -8,11 +8,20 @@ router.get('/', (req, res) => {
 });
 
 router.get('/new', (req, res) => {
-  res.send('User find');
+  res.render('users/new');
 });
 
 router.post('/', (req, res) => {
-  res.send('create user');
+  const isValid = true;
+  const firstName = req.body.firstName;
+  if (isValid) {
+    user.push({ name: firstName });
+    res.redirect(`/user/${user.length - 1}`);
+  } else {
+    console.log('error');
+    res.render('users/new', { firstName: firstName });
+  }
+  res.send(`hi ${firstName}`);
 });
 
 router
